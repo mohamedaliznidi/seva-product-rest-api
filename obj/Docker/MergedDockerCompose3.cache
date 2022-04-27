@@ -1,0 +1,24 @@
+services:
+  db:
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: Azerty*1234
+    image: mcr.microsoft.com/mssql/server
+    ports:
+    - published: 1401
+      target: 1433
+  parametrage:
+    build:
+      context: C:\Users\mzn\Desktop\Parametrage
+      dockerfile: Parametrage/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: parametrage
+    ports:
+    - target: 80
+    - target: 443
+    volumes:
+    - C:\Users\mzn\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\mzn\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+version: '3.4'
